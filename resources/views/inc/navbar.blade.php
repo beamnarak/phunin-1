@@ -29,6 +29,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{route('units.index')}}">{{Lang::get('unit.title')}}</a></li>
+                                    <li><a href="{{route('categories.index')}}">{{Lang::get('category.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest

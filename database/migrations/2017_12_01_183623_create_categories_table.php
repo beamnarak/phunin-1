@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSparePartCategoriesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateSparePartCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('spare_part_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->string('name');
+            $table->mediumText('description')->nullable();
+            $table->integer('user_id');
+
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateSparePartCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spare_part_categories');
+        Schema::dropIfExists('categories');
     }
 }
