@@ -20,3 +20,5 @@ Route::resource('categories','CategoryController');
 Route::resource('positions','PositionController');
 Route::resource('spare_parts','SparePartController');
 Route::resource('shops','ShopController');
+Route::resource('departments','DepartmentController');
+Route::resource('machines','MachineController');

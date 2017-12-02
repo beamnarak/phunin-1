@@ -33,6 +33,8 @@
                                     <li><a href="{{route('categories.index')}}">{{Lang::get('category.title')}}</a></li>
                                     <li><a href="{{route('positions.index')}}">{{Lang::get('position.title')}}</a></li>
                                     <li><a href="{{route('shops.index')}}">{{Lang::get('shop.title')}}</a></li>
+                                    <li><a href="{{route('departments.index')}}">{{Lang::get('department.title')}}</a></li>
+                                    <li><a href="{{route('machines.index')}}">{{Lang::get('machine.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest
