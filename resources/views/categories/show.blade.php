@@ -14,7 +14,7 @@
                         <h4>{{ Form::label('name', Lang::get('category.name')) }} : {{$category->name}}</h4>
                     </div>
                     <div class="form-group">
-                        <h4>{{ Form::label('name', Lang::get('category.description')) }} : 
+                        <h4>{{ Form::label('description', Lang::get('category.description')) }} : 
                             @if($category->description)
                                 {{$category->description}}
                             @else

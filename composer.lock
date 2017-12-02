@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa841f2ada4aef8916069ba1a26d138b",
+    "content-hash": "ee0e67cb23b967fd064519a6f155ac2a",
     "packages": [
+        {
+            "name": "bootstrap-select/bootstrap-select",
+            "version": "1.12.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silviomoreto/bootstrap-select.git",
+                "reference": "e1a7743e82eb16bce825ec58a8c95b2aceae6942"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silviomoreto/bootstrap-select/zipball/e1a7743e82eb16bce825ec58a8c95b2aceae6942",
+                "reference": "e1a7743e82eb16bce825ec58a8c95b2aceae6942",
+                "shasum": ""
+            },
+            "suggest": {
+                "components/jquery": ">=1.8",
+                "twbs/bootstrap": "~3.0.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Silvio Moreto",
+                    "homepage": "https://github.com/silviomoreto"
+                }
+            ],
+            "description": "Bootstrap-select is a jQuery plugin that utilizes Bootstrap's dropdown.js to style and bring additional functionality to standard select elements.",
+            "homepage": "http://silviomoreto.github.io/bootstrap-select",
+            "keywords": [
+                "bootstrap",
+                "form",
+                "replacement",
+                "select"
+            ],
+            "time": "2017-07-19T18:56:43+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
