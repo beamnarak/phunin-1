@@ -35,6 +35,7 @@
                             
                         </tbody>
                     </table>
+                    {{ $positions->links() }}
                     @else
                         No Position Found.
                     @endif

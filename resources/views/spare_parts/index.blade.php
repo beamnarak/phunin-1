@@ -39,6 +39,7 @@
                             
                         </tbody>
                     </table>
+                    {{ $spare_parts->links() }}
                     @else
                         No Spare Part Found.
                     @endif

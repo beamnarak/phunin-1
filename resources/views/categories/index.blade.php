@@ -39,6 +39,7 @@
                             
                         </tbody>
                     </table>
+                    {{ $categories->links() }}
                     @else
                         No Category Found.
                     @endif

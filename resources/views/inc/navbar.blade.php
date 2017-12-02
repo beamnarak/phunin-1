@@ -28,10 +28,11 @@
                                         {{Lang::get('menu.list')}} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="{{route('spare_parts.index')}}">{{Lang::get('spare_part.title')}}</a></li>
                                     <li><a href="{{route('units.index')}}">{{Lang::get('unit.title')}}</a></li>
                                     <li><a href="{{route('categories.index')}}">{{Lang::get('category.title')}}</a></li>
                                     <li><a href="{{route('positions.index')}}">{{Lang::get('position.title')}}</a></li>
-                                    <li><a href="{{route('spare_parts.index')}}">{{Lang::get('spare_part.title')}}</a></li>
+                                    <li><a href="{{route('shops.index')}}">{{Lang::get('shop.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest
