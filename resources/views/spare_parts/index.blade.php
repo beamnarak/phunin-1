@@ -36,7 +36,6 @@
                                     <td><a href="{{route('spare_parts.show', $spare_part->id)}}">{{$spare_part->position->code}}</a></td>
                                 </tr>
                                 @endforeach
-                            
                         </tbody>
                     </table>
                     {{ $spare_parts->links() }}

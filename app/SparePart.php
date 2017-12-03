@@ -21,4 +21,10 @@ class SparePart extends Model
     public function category(){
         return $this->belongsTo('App\Category');
     }
+
+    public function stock_ins(){
+        return $this->belongsToMany('App\StockIn')
+            ->withPivot('price')
+            ->withTimestamps();
+    }
 }

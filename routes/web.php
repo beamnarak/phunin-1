@@ -22,3 +22,4 @@ Route::resource('shops','ShopController');
 Route::resource('departments','DepartmentController');
 Route::resource('machines','MachineController');
 Route::resource('employees','EmployeeController');
+Route::resource('stock_ins','StockInController');
