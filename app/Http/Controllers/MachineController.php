@@ -18,7 +18,7 @@ class MachineController extends Controller
         $this->middleware('auth', ['except'=>['index','show']]);
     }
 
-    public function index()
+    public function index() 
     {
         $machines = Machine::orderBy('created_at','asc')->paginate(10);
         return view('machines.index')->with('machines', $machines);

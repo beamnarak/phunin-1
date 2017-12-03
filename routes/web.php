@@ -11,7 +11,6 @@
 |
 */
 
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -22,3 +21,4 @@ Route::resource('spare_parts','SparePartController');
 Route::resource('shops','ShopController');
 Route::resource('departments','DepartmentController');
 Route::resource('machines','MachineController');
+Route::resource('employees','EmployeeController');

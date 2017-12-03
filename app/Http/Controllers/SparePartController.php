@@ -93,12 +93,18 @@ class SparePartController extends Controller
     public function edit($id)
     {
         $spare_part = SparePart::find($id);
-        
+        $data = array(
+            'spare_part' => $spare_part,
+            'units' => Unit::all(),
+            'positions' => Position::all(),
+            'categories' => Category::all(),
+        );
+
         if(auth()->user()->id !== $spare_part->user_id){
             return redirect()->route('spare_parts.index')->with('error', 'Unauthorized Page');
         }
 
-        return view('spare_parts.edit')->with('spare_part',$spare_part);
+        return view('spare_parts.edit')->with($data);
     }
 
     /**

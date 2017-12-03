@@ -35,6 +35,15 @@
                                     <li><a href="{{route('shops.index')}}">{{Lang::get('shop.title')}}</a></li>
                                     <li><a href="{{route('departments.index')}}">{{Lang::get('department.title')}}</a></li>
                                     <li><a href="{{route('machines.index')}}">{{Lang::get('machine.title')}}</a></li>
+                                    <li><a href="{{route('employees.index')}}">{{Lang::get('employee.title')}}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                        {{Lang::get('menu.store')}} <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{route('stock_ins.index')}}">{{Lang::get('stock_in.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest
