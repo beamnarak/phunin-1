@@ -30,9 +30,15 @@
                         {{Form::label('category', Lang::get('category.title')) }}
                         {{Form::select('category_id', $categories->pluck('name','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
                     </div>
+
                     <div class="form-group">
                         {{Form::label('position', Lang::get('position.title')) }}
                         {{Form::select('position_id', $positions->pluck('code','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
+                    </div>
+
+                    <div class="form-group">
+                        {{ Form::label('minimum', Lang::get('spare_part.minimum')) }}
+                        {{Form::number('minimum','',['class' => 'form-control', 'placeholder' => Lang::get('spare_part.minimum'), 'min' =>'0.00', 'step'=>'0.01'])}}
                     </div>
 
                     <div class="form-group">

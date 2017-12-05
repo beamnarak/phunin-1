@@ -35,9 +35,9 @@ class SparePartController extends Controller
     public function create()
     {
         $data = array(
-            'units' => Unit::all(),
-            'positions' => Position::all(),
-            'categories' => Category::all(),
+            'units' => Unit::orderBy('name','asc'),
+            'positions' => Position::orderBy('code','asc'),
+            'categories' => Category::orderBy('name','asc'),
         );
         return view('spare_parts.create')->with($data);
     }
@@ -55,6 +55,7 @@ class SparePartController extends Controller
             'category_id' => 'required',
             'position_id' => 'required',
             'unit_id' => 'required',
+            'minimum' => 'required',
         ]);
 
         $spare_part = new SparePart;
@@ -65,6 +66,7 @@ class SparePartController extends Controller
         $spare_part->category_id = $request->input('category_id');
         $spare_part->position_id = $request->input('position_id');
         $spare_part->unit_id = $request->input('unit_id');
+        $spare_part->minimum = $request->input('minimum');
 
         $spare_part->user_id = auth()->user()->id;
         $spare_part->save();
@@ -95,9 +97,9 @@ class SparePartController extends Controller
         $spare_part = SparePart::find($id);
         $data = array(
             'spare_part' => $spare_part,
-            'units' => Unit::all(),
-            'positions' => Position::all(),
-            'categories' => Category::all(),
+            'units' => Unit::orderBy('name','asc'),
+            'positions' => Position::orderBy('code','asc'),
+            'categories' => Category::orderBy('name','asc'),
         );
 
         if(auth()->user()->id !== $spare_part->user_id){
@@ -121,6 +123,7 @@ class SparePartController extends Controller
             'category_id' => 'required',
             'position_id' => 'required',
             'unit_id' => 'required',
+            'minimum' => 'required',
         ]);
 
         $spare_part = SparePart::find($id);
@@ -131,6 +134,7 @@ class SparePartController extends Controller
         $spare_part->category_id = $request->input('category_id');
         $spare_part->position_id = $request->input('position_id');
         $spare_part->unit_id = $request->input('unit_id');
+        $spare_part->minimum = $request->input('minimum');
 
         $spare_part->user_id = auth()->user()->id;
         $spare_part->save();

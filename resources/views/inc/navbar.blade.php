@@ -44,6 +44,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{route('stock_ins.index')}}">{{Lang::get('stock_in.title')}}</a></li>
+                                    <li><a href="{{route('stock_outs.index')}}">{{Lang::get('stock_out.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest

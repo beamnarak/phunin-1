@@ -3,12 +3,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use App\StockIn;
-use App\Shop;
+use App\StockOut;
+use App\Machine;
 use App\SparePart;
+use App\Employee;
 use Validator;
 
-class StockInController extends Controller
+class StockOutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +24,8 @@ class StockInController extends Controller
 
     public function index()
     {
-        $stock_ins = StockIn::orderBy('date')->paginate(10);
-        return view('stock_ins.index')->with('stock_ins', $stock_ins);
+        $stock_outs = StockOut::orderBy('date')->paginate(10);
+        return view('stock_outs.index')->with('stock_outs', $stock_outs);
     }
 
     /**
@@ -35,10 +36,11 @@ class StockInController extends Controller
     public function create()
     {
         $data = array(
-            'shops' => Shop::all(),
+            'machines' => Machine::all(),
+            'employees' => Employee::all(),
             'spare_parts' => SparePart::all(),
         );
-        return view('stock_ins.create')->with($data);
+        return view('stock_outs.create')->with($data);
     }
 
     /**
@@ -50,22 +52,23 @@ class StockInController extends Controller
     public function store(Request $request)
     {        
         $this->validate($request, [
-            'order_id' => 'required|unique:stock_ins,order_id',
+            'request_id' => 'required|unique:stock_outs,request_id',
             'date' => 'required',
-            'shop_id' => 'required',
+            'machine_id' => 'required',
+            'employee_id' => 'required',
         ]);
-   
-        // save stock_in
-        $stock_in = new StockIn;
-        $stock_in->order_id = $request->input('order_id');
-        $stock_in->shop_id = $request->input('shop_id');
-        $stock_in->date = $request->input('date');
-        $stock_in->note = $request->input('note');
-        $stock_in->user_id = auth()->user()->id;
+
+        // save stock_out
+        $stock_out = new StockOut;
+        $stock_out->request_id = $request->input('request_id');
+        $stock_out->machine_id = $request->input('machine_id');
+        $stock_out->employee_id = $request->input('employee_id');
+        $stock_out->date = $request->input('date');
+        $stock_out->note = $request->input('note');
+        $stock_out->user_id = auth()->user()->id;
         
         // save pivot
         $spds = $request->input('spare_part_ids');
-        $prices = $request->input('prices');
         $qtys = $request->input('qtys');
 
         // check array must not duplicate
@@ -75,16 +78,15 @@ class StockInController extends Controller
         }
         else
         {
-            $stock_in->save();
-            $sid = StockIn::where('order_id','=',$request->input('order_id'))->first()->id;
+            $stock_out->save();
+            $sid = StockOut::where('request_id','=',$request->input('request_id'))->first()->id;
             
             for($i = 0; $i<count($spds); $i++){
                 if($qtys[$i]<=0) $qtys[$i] = 1;
-                if($prices[$i]<=0) $prices[$i] = 1;
                 $spare_part = SparePart::find($spds[$i]);
-                $spare_part->stock_ins()->attach($sid,['amount'=>$qtys[$i],'price'=>$prices[$i]]);
+                $spare_part->stock_outs()->attach($sid,['amount'=>$qtys[$i]]);
             }
-            return redirect('/stock_ins')->with('success','StockIn created');
+            return redirect('/stock_outs')->with('success','StockOut created');
         }
 
     }
@@ -97,8 +99,8 @@ class StockInController extends Controller
      */
     public function show($id)
     {
-        $stock_in = StockIn::find($id);
-        return view('stock_ins.show')->with('stock_in', $stock_in);
+        $stock_out = StockOut::find($id);
+        return view('stock_outs.show')->with('stock_out', $stock_out);
     }
 
     /**
@@ -110,13 +112,13 @@ class StockInController extends Controller
     public function edit($id)
     {
         /*
-        $stock_in = StockIn::find($id);
+        $stock_out = StockOut::find($id);
         
-        if(auth()->user()->id !== $stock_in->user_id){
-            return redirect()->route('stock_ins.index')->with('error', 'Unauthorized Page');
+        if(auth()->user()->id !== $stock_out->user_id){
+            return redirect()->route('stock_outs.index')->with('error', 'Unauthorized Page');
         }
 
-        return view('stock_ins.edit')->with('stock_in',$stock_in);
+        return view('stock_outs.edit')->with('stock_out',$stock_out);
         */
     }
 
@@ -131,14 +133,14 @@ class StockInController extends Controller
     {
         /*
         $this->validate($request, [
-            'name' => 'required|string|unique:stock_ins,name,'.$id,
+            'name' => 'required|string|unique:stock_outs,name,'.$id,
         ]);
-        $stock_in = StockIn::find($id);
-        $stock_in->name = $request->input('name');
-        $stock_in->user_id = auth()->user()->id;
-        $stock_in->save();
+        $stock_out = StockOut::find($id);
+        $stock_out->name = $request->input('name');
+        $stock_out->user_id = auth()->user()->id;
+        $stock_out->save();
 
-        return redirect('/stock_ins')->with('success','StockIn updated');
+        return redirect('/stock_outs')->with('success','StockOut updated');
         */
     }
 
@@ -150,10 +152,10 @@ class StockInController extends Controller
      */
     public function destroy($id)
     {
-        $stock_in = StockIn::find($id);
-        $stock_in->spare_parts()->detach();
-        $stock_in->delete();
+        $stock_out = StockOut::find($id);
+        $stock_out->spare_parts()->detach();
+        $stock_out->delete();
 
-        return redirect('/stock_ins')->with('success','StockIn Removed');
+        return redirect('/stock_outs')->with('success','StockOut Removed');
     }
 }

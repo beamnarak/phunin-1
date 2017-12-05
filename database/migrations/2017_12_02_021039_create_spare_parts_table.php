@@ -20,6 +20,7 @@ class CreateSparePartsTable extends Migration
             $table->mediumText('description')->nullable();
             $table->mediumText('note')->nullable();
 
+            $table->decimal('minimum'); //minimum quantity in store
             $table->integer('category_id');
             $table->integer('unit_id');
             $table->integer('position_id');

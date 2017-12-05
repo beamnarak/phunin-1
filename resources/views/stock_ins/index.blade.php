@@ -37,7 +37,7 @@
                                     <td>{{$stock_in->shop->name}}</td>
                                     <td>
                                     @foreach($stock_in->spare_parts as $spare_part)
-                                        {{$spare_part->description}} <br>    
+                                        {{$spare_part->description}}: {{$spare_part->pivot->amount}} {{$spare_part->unit->name}}<br>    
                                     @endforeach
                                     </td>
                                 </tr>

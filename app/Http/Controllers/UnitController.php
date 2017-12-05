@@ -20,7 +20,7 @@ class UnitController extends Controller
 
     public function index()
     {
-        $units = Unit::orderBy('created_at')->paginate(10);
+        $units = Unit::orderBy('id')->paginate(10);
         return view('units.index')->with('units', $units);
     }
 
