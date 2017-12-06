@@ -84,7 +84,7 @@ class StockOutController extends Controller
             for($i = 0; $i<count($spds); $i++){
                 if($qtys[$i]<=0) $qtys[$i] = 1;
                 $spare_part = SparePart::find($spds[$i]);
-                $spare_part->stock_outs()->attach($sid,['amount'=>$qtys[$i]]);
+                $spare_part->stock_outs()->attach($sid,[ 'amount' => $qtys[$i]*-1 ]);
             }
             return redirect('/stock_outs')->with('success','StockOut created');
         }

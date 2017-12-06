@@ -83,6 +83,7 @@ class SparePartController extends Controller
     public function show($id)
     {
         $spare_part = SparePart::find($id);
+
         return view('spare_parts.show')->with('spare_part', $spare_part);
     }
 

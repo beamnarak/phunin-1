@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Machine;
+use App\StockOut;
 
 class MachineController extends Controller
 {
@@ -63,8 +64,13 @@ class MachineController extends Controller
      */
     public function show($id)
     {
-        $machine = Machine::find($id);
-        return view('machines.show')->with('machine', $machine);
+        $data = array(
+            'machine' => Machine::find($id),
+            'stock_outs' => StockOut::where('machine_id','=',$id)
+                            ->orderBy('request_id','desc')
+                            ->get(),
+        );
+        return view('machines.show')->with($data);
     }
 
     /**
@@ -85,7 +91,7 @@ class MachineController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage. 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

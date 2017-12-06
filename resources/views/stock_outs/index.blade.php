@@ -35,7 +35,7 @@
                                 <tr>
                                     <td><a href="{{route('stock_outs.show', $stock_out->id)}}">{{$stock_out->request_id}}</a></td>
                                     <td><a href="{{route('stock_outs.show', $stock_out->id)}}">{{$stock_out->date}}</a></td>
-                                    <td>{{$stock_out->machine->name}}</td>
+                                    <td><a href="{{route('machines.show', $stock_out->machine->id)}}">{{$stock_out->machine->name}}</a></td>
                                     <td>{{$stock_out->employee->name}}</td>
                                     <td>
                                     @foreach($stock_out->spare_parts as $spare_part)

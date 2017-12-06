@@ -7,7 +7,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>{{Lang::get('report.title')}}</h3>
+                    <h3>{{Lang::get('report.remind_low')}}</h3>
                 </div>
 
                 <div class="panel-body">
@@ -17,8 +17,9 @@
                             <tr>
                                 <th>{{Lang::get('spare_part.code')}}</th>
                                 <th>{{Lang::get('spare_part.description')}}</th>
-                                <th>{{Lang::get('spare_part.amount')}}</th>
+                                <th>{{Lang::get('stock_out.qty')}}</th>
                                 <th>{{Lang::get('spare_part.minimum')}}</th>
+                                <th>{{Lang::get('unit.title')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +31,7 @@
                                     <td><a href="{{route('spare_parts.show', $spare_part->id)}}">{{$spare_part->description}}</a></td>
                                         <td>{{$spare_part->getTotalAmount()}}</td>
                                         <td>{{$spare_part->minimum}}</td>
+                                        <td>{{$spare_part->unit->name}}</td>
                                     @endif
                                 </tr>
                                 @endforeach

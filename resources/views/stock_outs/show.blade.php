@@ -35,7 +35,7 @@
                     </table>
                 </div>
                 <div class="panel-footer">
-                {!! Form::open(['action' => ['StockInController@destroy', $stock_out->id], 'method' => 'POST' ]) !!}
+                {!! Form::open(['action' => ['StockOutController@destroy', $stock_out->id], 'method' => 'POST' ]) !!}
                     {{Form::hidden('_method','DELETE') }}
                     {{Form::submit(Lang::get('button.delete'), ['class' => 'btn btn-danger'])}}
                 {!! Form::close() !!}   

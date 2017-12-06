@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/reports/index', 'ReportController@index')->name('reports.index');
+Route::get('/reports/', 'ReportController@index')->name('reports.index');
 Route::resource('units','UnitController');
 Route::resource('categories','CategoryController');
 Route::resource('positions','PositionController');
