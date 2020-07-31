@@ -18,18 +18,18 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>id</th>
                                 <th>{{Lang::get('position.code')}}</th>
                                 <th>{{Lang::get('position.description')}}</th>
+                                <th>จำนวนชนิดอะไหล่</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                                 @foreach($positions as $position)
                                 <tr>
-                                    <td>{{$position->id}}</td>
                                     <td><a href="{{route('positions.show', $position->id)}}">{{$position->code}}</a></td>
                                     <td><a href="{{route('positions.show', $position->id)}}">{{$position->description}}</a></td>
+                                    <td>{{$position->spare_parts->count()}}</td>
                                 </tr>
                                 @endforeach
                             

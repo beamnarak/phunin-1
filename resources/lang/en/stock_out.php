@@ -6,4 +6,5 @@ return [
     'request_id' => 'Request ID',
     'qty' => 'Quantity',
     'note' => 'Note',
+    'total' => 'Total',
 ];

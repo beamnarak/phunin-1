@@ -20,7 +20,7 @@ class ShopController extends Controller
 
     public function index()
     {
-        $shops = Shop::orderBy('created_at','asc')->paginate(10);
+        $shops = Shop::orderBy('created_at','desc')->paginate(10);
         return view('shops.index')->with('shops', $shops);
     }
 
@@ -47,7 +47,8 @@ class ShopController extends Controller
         ]);
 
         $shop = new Shop;
-        $shop->name = $request->input('name');
+        $shop->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$shop->name = $request->input('name');
         $shop->description = $request->input('description');
         $shop->user_id = auth()->user()->id;
         $shop->save();
@@ -77,9 +78,10 @@ class ShopController extends Controller
     {
         $shop = Shop::find($id);
         
+        /*
         if(auth()->user()->id !== $shop->user_id){
             return redirect()->route('shops.index')->with('error', 'Unauthorized Page');
-        }
+        }*/
 
         return view('shops.edit')->with('shop',$shop);
     }
@@ -97,7 +99,8 @@ class ShopController extends Controller
             'name' => 'required|string|unique:shops,name,'.$id,
         ]);
         $shop = Shop::find($id);
-        $shop->name = $request->input('name');
+        //$shop->name = $request->input('name');
+        $shop->name = preg_replace('!\s+!', ' ', $request->input('name'));
         $shop->description = $request->input('description');
         $shop->user_id = auth()->user()->id;
         $shop->save();

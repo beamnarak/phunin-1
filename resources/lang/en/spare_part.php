@@ -6,4 +6,5 @@ return [
     'description' => 'Description',
     'minimum' => 'Minimum',
     'note' => 'Note',
+    'remain' => 'Remain'
 ];

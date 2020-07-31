@@ -22,7 +22,7 @@
                 {!! Form::open(['action' => 'StockInController@store', 'method' => 'POST']) !!}
                     <div class="form-group">
                         {{ Form::label('order_id', Lang::get('stock_in.order_id')) }}
-                        {{Form::text('order_id','',['class' => 'form-control', 'placeholder' => Lang::get('stock_in.order_id') ])}}
+                        {{Form::text('order_id','',['class' => 'form-control', 'placeholder' => 'ตัวอย่าง x999/99999-99 หรือ 999/99999-99' ])}}
                     </div>
                     <div class="form-group">
                         {{ Form::label('date', Lang::get('stock_in.date')) }}
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         {{Form::label('shop', Lang::get('shop.title')) }}
-                        {{Form::select('shop_id', $shops->pluck('name','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
+                        {{Form::select('shop_id', $shops->pluck('name','id'),null,['placeholder'=>'ไม่มีรายการที่ถูกเลือก','class' => 'form-control selectpicker','data-live-search'=>'true'])}}
                     </div>
                     <div class="form-group">
                         {{ Form::label('note', Lang::get('stock_in.note')) }}
@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 {{Form::label('index', $i+1, ['class'=>'control-label col-sm-1'])}}
                                 <div class="col-sm-5"> 
-                                    {{Form::select('spare_part_ids['.$i.']', $spare_parts->pluck('description','id'),null,['class' => 'form-controler col-sm-12 selectpicker','data-live-search'=>'true',])}}
+                                    {{Form::select('spare_part_ids['.$i.']', $spare_parts->pluck('detail','id'),null,['placeholder'=>'ไม่มีรายการที่ถูกเลือก','class' => 'form-controler col-sm-12 selectpicker','data-live-search'=>'true'])}}
                                 </div>
                                 <div class="col-sm-2"> 
                                     {{Form::number('qtys['.$i.']','',['class' => 'form-control', 'placeholder' => Lang::get('stock_in.qty'), 'min' =>'0.00', 'step'=>'0.01'])}}
@@ -64,11 +64,11 @@
     </div>
 </div>
 
+@endsection
+
 <script>
 var spare_part_label = '{!!Form::label('spare_part', Lang::get('spare_part.title')) !!}'
 var spare_part_field = '{!!Form::select('spare_part_ids[]', $spare_parts->pluck('description','id'),null,['class' => 'selectpicker','data-live-search'=>'true',])!!}' 
 var qyt_field = '{!!Form::text('qtys[]','',['class' => 'form-control', 'placeholder' => Lang::get('stock_in.qty') ])!!}'
 var price_field = '{!!Form::text('prices[]','',['class' => 'form-control', 'placeholder' => Lang::get('stock_in.price') ])!!}'
 </script>
-@endsection
-

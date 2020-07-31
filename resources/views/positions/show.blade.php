@@ -31,6 +31,14 @@
                 {!! Form::close() !!}   
                 </div>
             </div>
+            
+            <div class="panel default">
+            <ul>
+            @foreach($position->spare_parts as $spare_part)
+                <li><a href="{{ route('spare_parts.show',$spare_part->id) }}" >{{$spare_part->detail}}</a></li>
+            @endforeach
+            </ul>
+            </div>
         </div>
     </div>
 </div>

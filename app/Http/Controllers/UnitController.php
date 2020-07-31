@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Unit;
 
@@ -20,12 +21,29 @@ class UnitController extends Controller
 
     public function index()
     {
-        $units = Unit::orderBy('id')->paginate(10);
-        return view('units.index')->with('units', $units);
+        $data = array(
+            'units' => Unit::orderBy('created_at','desc')->paginate(10),
+        );
+       
+        return view('units.index')->with($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
+    public function search(Request $request)
+    {
+        $units = Unit::orderBy('created_at','desc')->paginate(10);
+        if($request->input('keyword') != '')
+        {
+
+        }
+
+        $data = array(
+            'units' => $units,
+        );
+
+        return view('units.index')->with($data);
+    }
+
+     /* Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -47,7 +65,8 @@ class UnitController extends Controller
         ]);
 
         $unit = new Unit;
-        $unit->name = $request->input('name');
+        $unit->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$unit->name = $request->input('name');
         $unit->user_id = auth()->user()->id;
         $unit->save();
 
@@ -75,10 +94,10 @@ class UnitController extends Controller
     public function edit($id)
     {
         $unit = Unit::find($id);
-        
+        /*
         if(auth()->user()->id !== $unit->user_id){
             return redirect()->route('units.index')->with('error', 'Unauthorized Page');
-        }
+        }*/
 
         return view('units.edit')->with('unit',$unit);
     }
@@ -96,7 +115,8 @@ class UnitController extends Controller
             'name' => 'required|string|unique:units,name,'.$id,
         ]);
         $unit = Unit::find($id);
-        $unit->name = $request->input('name');
+        $unit->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$unit->name = $request->input('name');
         $unit->user_id = auth()->user()->id;
         $unit->save();
 

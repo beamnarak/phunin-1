@@ -13,12 +13,28 @@
                     <div class="form-group">
                         <h4>{{ Form::label('request_id', Lang::get('stock_out.request_id')) }} : {{$stock_out->request_id}}</h4>
                     </div>
+                    
                     <div class="form-group">
-                        <h4>{{ Form::label('date', Lang::get('stock_out.date')) }} : {{$stock_out->date}}</h4>
+                        <h4>{{ Form::label('date', Lang::get('stock_out.date')) }} : 
+                            @if($stock_out->spare_parts->count() > 0)
+                                {{$stock_out->spare_parts->first()->pivot->date}}
+                            @endif
+                        </h4>
                     </div>
                     <div class="form-group">
-                        <h4>{{ Form::label('employee', Lang::get('employee.title')) }} : {{$stock_out->employee->name}}</h4>
+                        <h4>{{ Form::label('employee', Lang::get('stock_out.requestioner')) }} : {{$stock_out->employee->name}}</h4>
                     </div>
+                    <div class="form-group">
+                        <h4>{{ Form::label('machine', Lang::get('machine.title')) }} : {{$stock_out->machine->name}}</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <h4>{{ Form::label('writer', Lang::get('common.writer')) }} : {{$stock_out->user->name}}</h4>
+                    </div>
+                    <div class="form-group">
+                        <h4>{{ Form::label('note', Lang::get('stock_out.note')) }} : {{$stock_out->note}}</h4>
+                    </div>
+
                     <table class="table">
                         <thead>
                             <th>{{Lang::get('spare_part.title')}}</th>
@@ -28,7 +44,7 @@
                             @foreach($stock_out->spare_parts as $spare_part)
                             <tr>
                                 <td>{{$spare_part->description}}</td>
-                                <td>{{$spare_part->pivot->amount}} {{$spare_part->unit->name}}</td>
+                                <td>{{number_format($spare_part->pivot->amount*-1,2)}} {{$spare_part->unit->name}}</td>
                             </tr>
                             @endforeach
                         </tbody>

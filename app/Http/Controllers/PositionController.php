@@ -20,7 +20,7 @@ class PositionController extends Controller
 
     public function index()
     {
-        $positions = Position::orderBy('created_at')->paginate(10);
+        $positions = Position::orderBy('code','asc')->paginate(10);
         return view('positions.index')->with('positions', $positions);
     }
 
@@ -43,11 +43,16 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|string|unique:positions,code',
+            'code' => array(
+                'required',
+                'string',
+                'unique:positions,code',
+            )
         ]);
 
         $position = new Position;
-        $position->code = $request->input('code');
+        //$position->code = $request->input('code');
+        $position->code = preg_replace('!\s+!', ' ', $request->input('code'));
         $position->description = $request->input('description');
         $position->user_id = auth()->user()->id;
         $position->save();
@@ -63,8 +68,11 @@ class PositionController extends Controller
      */
     public function show($id)
     {
-        $position = Position::find($id);
-        return view('positions.show')->with('position', $position);
+        
+        $data = array(
+            'position' => Position::find($id),
+        );
+        return view('positions.show')->with($data);
     }
 
     /**
@@ -77,9 +85,11 @@ class PositionController extends Controller
     {
         $position = Position::find($id);
         
+        /*
         if(auth()->user()->id !== $position->user_id){
             return redirect()->route('positions.index')->with('error', 'Unauthorized Page');
         }
+        */
 
         return view('positions.edit')->with('position',$position);
     }
@@ -97,7 +107,8 @@ class PositionController extends Controller
             'code' => 'required|string|unique:positions,code,'.$id,
         ]);
         $position = Position::find($id);
-        $position->code = $request->input('code');
+        $position->code = preg_replace('!\s+!', ' ', $request->input('code'));
+        //$position->code = $request->input('code');
         $position->description = $request->input('description');
         $position->user_id = auth()->user()->id;
         $position->save();

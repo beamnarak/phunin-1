@@ -24,11 +24,8 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                <a href="{{route('employees.edit',$employee->id)}}" class="btn btn-primary">{{Lang::get('crud.edit')}}</a>
-                {!! Form::open(['action' => ['EmployeeController@destroy', $employee->id], 'method' => 'POST', 'class'=>'pull-right' ]) !!}
-                    {{Form::hidden('_method','DELETE') }}
-                    {{Form::submit(Lang::get('button.delete'), ['class' => 'btn btn-danger'])}}
-                {!! Form::close() !!}   
+                <!--a href="{{route('employees.edit',$employee->id)}}" class="btn btn-primary">{{Lang::get('crud.edit')}}</a-->
+                
                 </div>
             </div>
         </div>

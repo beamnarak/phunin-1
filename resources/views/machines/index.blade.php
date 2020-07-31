@@ -8,9 +8,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>{{Lang::get('machine.title')}}</h3>
-                    <div class="btn-group pull-right">
+                    <!-- <div class="btn-group pull-right">
                         <a href="{{ route('machines.create') }}" class="btn btn-primary" >{{lang::get('crud.create')}}</a>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="panel-body">
@@ -18,22 +18,27 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>id</th>
                                 <th>{{Lang::get('machine.name')}}</th>
                                 <th>{{Lang::get('machine.description')}}</th>
+                                <th>{{Lang::get('machine_categories.title')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                                 @foreach($machines as $machine)
                                 <tr>
-                                    <td>{{$machine->id}}</td>
                                     <td><a href="{{route('machines.show', $machine->id)}}">{{$machine->name}}</a></td>
                                     @if($machine->description)
                                         <td>{{$machine->description}}</td>
                                     @else
                                         <td>-</td>
                                     @endif
+                                    @if($machine->machine_category)
+                                        <td>{{$machine->machine_category->name}}</td>  
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    
                                 </tr>
                                 @endforeach
                             

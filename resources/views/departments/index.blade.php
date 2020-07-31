@@ -18,7 +18,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>id</th>
                                 <th>{{Lang::get('department.name')}}</th>
                             </tr>
                         </thead>
@@ -26,7 +25,6 @@
                             
                                 @foreach($departments as $department)
                                 <tr>
-                                    <td>{{$department->id}}</td>
                                     <td><a href="{{route('departments.show', $department->id)}}">{{$department->name}}</a></td>
                                     
                                 </tr>

@@ -18,7 +18,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>id</th>
                                 <th>{{Lang::get('employee.name')}}</th>
                                 <th>{{Lang::get('department.title')}}</th>
                             </tr>
@@ -26,7 +25,6 @@
                         <tbody>
                                 @foreach($employees as $employee)
                                 <tr>
-                                    <td>{{$employee->id}}</td>
                                     <td><a href="{{route('employees.show', $employee->id)}}">{{$employee->name}}</a></td>
                                 
                                     <td>{{$employee->department->name}}</td>

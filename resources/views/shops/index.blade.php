@@ -18,7 +18,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>id</th>
                                 <th>{{Lang::get('shop.name')}}</th>
                                 <th>{{Lang::get('shop.description')}}</th>
                             </tr>
@@ -27,7 +26,6 @@
                             
                                 @foreach($shops as $shop)
                                 <tr>
-                                    <td>{{$shop->id}}</td>
                                     <td><a href="{{route('shops.show', $shop->id)}}">{{$shop->name}}</a></td>
                                     @if($shop->description)
                                         <td>{{$shop->description}}</td>

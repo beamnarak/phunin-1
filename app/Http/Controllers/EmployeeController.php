@@ -21,7 +21,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::orderBy('created_at','asc')->paginate(10);
+        $employees = Employee::paginate(10);
         return view('employees.index')->with('employees', $employees);
     }
 
@@ -51,7 +51,8 @@ class EmployeeController extends Controller
         ]);
 
         $employee = new Employee;
-        $employee->name = $request->input('name');
+        $employee->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$employee->name = $request->input('name');
         $employee->description = $request->input('description');
         $employee->department_id = $request->input('department_id');
         $employee->user_id = auth()->user()->id;
@@ -85,10 +86,11 @@ class EmployeeController extends Controller
             'employee' => $employee,
             'departments' => Department::all(),
         );
-    
-        if(auth()->user()->id !== $employee->user_id){
-            return redirect()->route('employees.index')->with('error', 'Unauthorized Page');
-        }
+        /*
+            if(auth()->user()->id !== $employee->user_id){
+                return redirect()->route('employees.index')->with('error', 'Unauthorized Page');
+            }
+        */
 
         return view('employees.edit')->with($data);
     }
@@ -106,7 +108,8 @@ class EmployeeController extends Controller
             'name' => 'required|string|unique:employees,name,'.$id,
         ]);
         $employee = Employee::find($id);
-        $employee->name = $request->input('name');
+        //$employee->name = $request->input('name');
+        $employee->name = preg_replace('!\s+!', ' ', $request->input('name'));
         $employee->description = $request->input('description');
         $employee->department_id = $request->input('department_id');
         $employee->user_id = auth()->user()->id;

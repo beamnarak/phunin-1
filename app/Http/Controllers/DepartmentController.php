@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $departments = Department::orderBy('created_at')->paginate(10);
+        $departments = Department::orderBy('name','asc')->paginate(10);
         return view('departments.index')->with('departments', $departments);
     }
 
@@ -47,7 +47,8 @@ class DepartmentController extends Controller
         ]);
 
         $department = new Department;
-        $department->name = $request->input('name');
+        $department->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$department->name = $request->input('name');
         $department->user_id = auth()->user()->id;
         $department->save();
 
@@ -75,10 +76,10 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::find($id);
-        
+        /*
         if(auth()->user()->id !== $department->user_id){
             return redirect()->route('departments.index')->with('error', 'Unauthorized Page');
-        }
+        }*/
 
         return view('departments.edit')->with('department',$department);
     }
@@ -96,7 +97,8 @@ class DepartmentController extends Controller
             'name' => 'required|string|unique:departments,name,'.$id,
         ]);
         $department = Department::find($id);
-        $department->name = $request->input('name');
+        $department->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$department->name = $request->input('name');
         $department->user_id = auth()->user()->id;
         $department->save();
 

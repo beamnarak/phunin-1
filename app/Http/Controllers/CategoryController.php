@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\SparePart;
 
 class CategoryController extends Controller
 {
@@ -20,8 +21,25 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::orderBy('created_at')->paginate(10);
+        $categories = Category::orderBy('name','asc')->paginate(10);
         return view('categories.index')->with('categories', $categories);
+    }
+
+    public function search(Request $request)
+    {
+        if($request->input('keyword') != ''){
+            $keyword = $request->input('keyword');
+            $categories = Category::where('name','like','%'.$keyword.'%')
+                            ->orWhere('description','like','%'.$keyword.'%')
+                            ->orderBy('name')->paginate(1000);
+        } else {
+            $categories = Category::orderBy('created_at','desc')->paginate(10);
+        }
+
+        $data = array(
+            'categories' => $categories,
+        );
+        return view('categories.index')->with($data);
     }
 
     /**
@@ -47,7 +65,8 @@ class CategoryController extends Controller
         ]);
 
         $category = new Category;
-        $category->name = $request->input('name');
+        $category->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->user_id = auth()->user()->id;
         $category->save();
@@ -63,8 +82,12 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
-        return view('categories.show')->with('category', $category);
+        $data = array(
+            'category' => Category::find($id) ,
+            'spare_parts' => SparePart::where('category_id','=',$id)->orderBy('code')->paginate(10),
+        );
+        
+        return view('categories.show')->with($data);
     }
 
     /**
@@ -77,9 +100,11 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         
+        /*
         if(auth()->user()->id !== $category->user_id){
             return redirect()->route('categories.index')->with('error', 'Unauthorized Page');
         }
+        */
 
         return view('categories.edit')->with('category',$category);
     }
@@ -97,7 +122,8 @@ class CategoryController extends Controller
             'name' => 'required|string|unique:categories,name,'.$id,
         ]);
         $category = Category::find($id);
-        $category->name = $request->input('name');
+        $category->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->user_id = auth()->user()->id;
         $category->save();

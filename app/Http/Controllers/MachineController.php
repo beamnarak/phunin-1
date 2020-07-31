@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Machine;
 use App\StockOut;
+use App\MachineCategory;
+use App\Repairment;
 
 class MachineController extends Controller
 {
@@ -21,7 +23,7 @@ class MachineController extends Controller
 
     public function index() 
     {
-        $machines = Machine::orderBy('created_at','asc')->paginate(10);
+        $machines = Machine::orderBy('created_at','desc')->paginate(10);
         return view('machines.index')->with('machines', $machines);
     }
 
@@ -32,7 +34,10 @@ class MachineController extends Controller
      */
     public function create()
     {
-        return view('machines.create');
+        $data = array(
+            'machine_categories' => MachineCategory::orderBy('name','asc'),
+        );
+        return view('machines.create')->with($data);
     }
 
     /**
@@ -45,11 +50,14 @@ class MachineController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|unique:machines,name',
+            'machine_category_id' => 'required',
         ]);
 
         $machine = new Machine;
-        $machine->name = $request->input('name');
+        $machine->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        //$machine->name = $request->input('name');
         $machine->description = $request->input('description');
+        $machine->machine_category_id = $request->input('machine_category_id');
         $machine->user_id = auth()->user()->id;
         $machine->save();
 
@@ -69,6 +77,9 @@ class MachineController extends Controller
             'stock_outs' => StockOut::where('machine_id','=',$id)
                             ->orderBy('request_id','desc')
                             ->get(),
+            'repairments' => Repairment::where('machine_id','=',$id)
+                            ->orderBy('end_date','desc')
+                            ->get(),
         );
         return view('machines.show')->with($data);
     }
@@ -81,13 +92,18 @@ class MachineController extends Controller
      */
     public function edit($id)
     {
-        $machine = Machine::find($id);
         
+        $data = array(
+            'machine_categories' => MachineCategory::orderBy('name','asc'),
+            'machine' => Machine::find($id),
+        );
+        /*
         if(auth()->user()->id !== $machine->user_id){
             return redirect()->route('machines.index')->with('error', 'Unauthorized Page');
         }
-
-        return view('machines.edit')->with('machine',$machine);
+        */
+        
+        return view('machines.edit')->with($data);
     }
 
     /**
@@ -103,7 +119,9 @@ class MachineController extends Controller
             'name' => 'required|string|unique:machines,name,'.$id,
         ]);
         $machine = Machine::find($id);
-        $machine->name = $request->input('name');
+        $machine->name = preg_replace('!\s+!', ' ', $request->input('name'));
+        $machine->machine_category_id = $request->input('machine_category_id');
+        //$machine->name = $request->input('name');
         $machine->description = $request->input('description');
         $machine->user_id = auth()->user()->id;
         $machine->save();

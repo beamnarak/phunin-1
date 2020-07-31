@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -45,6 +45,15 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{route('stock_ins.index')}}">{{Lang::get('stock_in.title')}}</a></li>
                                     <li><a href="{{route('stock_outs.index')}}">{{Lang::get('stock_out.title')}}</a></li>
+                                    <li><a href="{{route('repairments.index')}}">{{Lang::get('repairment.title')}}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                        {{Lang::get('menu.report')}} <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{route('reports.index')}}">{{Lang::get('report.title')}}</a></li>
                                 </ul>
                             </li>
                         @endguest

@@ -23,17 +23,17 @@
 
                     <div class="form-group">
                         {{Form::label('unit', Lang::get('unit.title')) }}
-                        {{Form::select('unit_id', $units->pluck('name','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
+                        {{Form::select('unit_id', $units->pluck('name','id'),null,['placeholder'=>'ไม่มีรายการที่ถูกเลือก','class' => 'form-control selectpicker','data-live-search'=>'true',])}}
                     </div>
 
                     <div class="form-group">
                         {{Form::label('category', Lang::get('category.title')) }}
-                        {{Form::select('category_id', $categories->pluck('name','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
+                        {{Form::select('category_id', $categories->pluck('name','id'),null,['placeholder'=>'ไม่มีรายการที่ถูกเลือก','class' => 'form-control selectpicker','data-live-search'=>'true',])}}
                     </div>
 
                     <div class="form-group">
                         {{Form::label('position', Lang::get('position.title')) }}
-                        {{Form::select('position_id', $positions->pluck('code','id'),null,['class' => 'form-control selectpicker','data-live-search'=>'true',])}}
+                        {{Form::select('position_id', $positions->pluck('code','id'),null,['placeholder'=>'ไม่มีรายการที่ถูกเลือก','class' => 'form-control selectpicker','data-live-search'=>'true',])}}
                     </div>
 
                     <div class="form-group">
