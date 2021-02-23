@@ -24,6 +24,9 @@ Route::get(
     '/reports/stockout_each_machine/',
     ['as' => 'reports.stockout_each_machine', 'uses' => 'ReportController@stockout_each_machine']);
 Route::get(
+    '/reports/conclusion_each_month/',
+    ['as' => 'reports.conclusion_each_month', 'uses' => 'ReportController@conclusion_each_month']);
+Route::get(
     '/reports/conclusion/',
     ['as' => 'reports.conclusion', 'uses' => 'ReportController@conclusion']);
 Route::get(

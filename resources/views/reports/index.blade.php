@@ -9,6 +9,7 @@
                 @include('inc.report_month_year_shop_form')
                 @include('inc.report_month_year_machine_form')
                 @include('inc.report_each_category_form')
+                @include('inc.report_conclusion_each_month_form')
             </div>
         </div>
     </div>

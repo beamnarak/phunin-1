@@ -149,6 +149,30 @@ class ReportController extends Controller
         return view('reports.each_category')->with($data);
     }
 
+    public function conclusion_each_month()
+    {
+        $year = Input::get('year');
+
+        $in = [];
+        $out = [];
+
+        $count = 0;
+        for ($i = 0; $i < 12; $i++) {
+            $in[$count] = $this->getTotalCostIn($i + 1, $year);
+            $out[$count] = $this->getTotalCostOut($i + 1, $year) * -1;
+            $count++;
+        }
+
+        $data = array(
+            'year' => $year,
+            'in' => $in,
+            'out' => $out,
+        );
+
+        return view('reports.conclusion_each_month')->with($data);
+    }
+
+    /*
     public function conclusion()
     {
         $START_YEAR = 2017;
@@ -158,11 +182,11 @@ class ReportController extends Controller
         $in_last_year = 0; 
         $out_last_year = 0; 
 
-        //$in_last_year = $this->getTotalCostForStockIn($last_year);
-        //$out_last_year = $this->getTotalCostForStockOut($last_year);
+        $in_last_year = $this->getTotalCostForStockIn($last_year);
+        $out_last_year = $this->getTotalCostForStockOut($last_year);
         
-        $in_last_year = 15285402.25; // SUM of In from 2017..2018
-        $out_last_year = -12531365.57; // SUM of Out from 2017..2018
+        //$in_last_year = 15285402.25; // SUM of In from 2017..2018
+        //$out_last_year = -12531365.57; // SUM of Out from 2017..2018
 
         $previous_remain = $in_last_year + $out_last_year;
         $in = [];
@@ -186,6 +210,41 @@ class ReportController extends Controller
             'out' => $out,
             'remain' => $remain,
         );
+        return view('reports.conclusion')->with($data);
+    }*/
+    public function conclusion()
+    {
+        // Start Year = 2017
+        $start_year = 2017;
+        $this_year = now()->year;
+        $year_amount = $this_year - $start_year;
+
+        $in = [];
+        $out = [];
+        $remain = [];
+
+        $count = 0;
+        $last_remain = 0;
+        for ($j = 0; $j < $year_amount; $j++) {
+            for ($i = 0; $i < 12; $i++) {
+                $in[$count] = $this->getTotalCostIn($i + 1, $start_year + $j);
+                $out[$count] = $this->getTotalCostOut($i + 1, $start_year + $j) * -1;
+                $last_remain +=  $in[$count] - $out[$count];
+                $remain[$count] = $last_remain;
+
+                $count++;
+            }
+        }
+
+        $data = array(
+            'start_year' => $start_year,
+            'year_amount' => $year_amount,
+            'in' => $in,
+            'out' => $out,
+            'remain' => $remain,
+            'count' => 0,
+        );
+
         return view('reports.conclusion')->with($data);
     }
 

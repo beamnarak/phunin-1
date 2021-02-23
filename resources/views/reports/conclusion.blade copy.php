@@ -9,6 +9,8 @@
                 <div class="panel-heading">
                     <h3>{{Lang::get('report.conclusion')}}</h3>
                 </div>
+
+
                 <div class="panel-body">
                     <table class="table">
                         <tr>
@@ -17,16 +19,20 @@
                             <th>เบิกออก</th>
                             <th>คงเหลือ</th>
                         </tr>
-                        @for ($j=0; $j < $year_amount ; $j++) @for ($i=0; $i < 12; $i++) <tr>
-
-                            <td>{{$i + 1}} / {{$j+$start_year}}</td>
-                            <td>{{ number_format($in[$count], 2) }}</td>
-                            <td>{{ number_format($out[$count], 2) }}</td>
-                            <td>{{ number_format($remain[$count], 2) }}</td>
-                        
+                        <tr>
+                            <td>ยอดยกมาปี {{$last_year}}</td>
+                            <!--td>{{number_format($in_last_year,2)}}</td-->
+                            <!--td>{{number_format($out_last_year,2)}}</td-->
+                            <td></td>
+                            <td></td>
+                            <td>{{number_format($previous_remain,2)}}</td>
+                        </tr>
+                        @for ($i = 0; $i < 12; $i++) <tr>
+                            <td>{{$i + 1}} / {{$this_year}}</td>
+                            <td>{{ number_format($in[$i], 2) }}</td>
+                            <td>{{ number_format($out[$i], 2) }}</td>
+                            <td>{{ number_format($remain[$i], 2) }}</td>
                             </tr>
-                            <?php $count++; ?>
-                            @endfor
                             @endfor
                     </table>
                 </div>
